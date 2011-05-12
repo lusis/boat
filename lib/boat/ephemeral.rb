@@ -7,13 +7,6 @@ module Boat
     # contents of node
     attr_accessor :data
 
-    def initialize(attrs={})
-      attrs.each do |key, value|
-        m = "#{key}=".to_sym
-        self.send(m, value) if self.respond_to?(m)
-      end
-    end
-
     # saves the ephemeral object
     def save(opts={:path => self.path, :data => self.data})
       options = {:body => opts[:data]}
