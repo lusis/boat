@@ -37,7 +37,7 @@ module Boat
       end
     end
 
-    def initialize(attrs)
+    def initialize(attrs={})
       attrs.each do |key, value|
         m = "#{key}=".to_sym
         self.send(m, value) if self.respond_to?(m)

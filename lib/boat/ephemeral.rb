@@ -12,7 +12,7 @@ module Boat
       options = {:body => opts[:data]}
       begin
         response = self.class.put("#{self.class.noah_base_path}#{opts[:path]}", options)
-        case response
+        case response.code
         when 200
           %w[updated_at created_at id].each do |var|
             self.instance_variable_set("@#{var}", response.parsed_response["#{var}"])
