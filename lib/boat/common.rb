@@ -51,6 +51,7 @@ module Boat
       end
     end
 
+    # Returns an object as an instance of its class
     def read(name=@name)
       begin
         a = self.class.new
@@ -60,6 +61,15 @@ module Boat
         end
         a
       rescue Errno::ECONNREFUSED
+        "Noah server is unreachable"
+      end
+    end
+
+    # Returns the raw hash representation of an object
+    def read_raw(name=@name)
+      begin
+        res = self.class.get("#{self.class.noah_base_path}/#{name}").parsed_response
+      resuce Errno::ECONNREFUSED
         "Noah server is unreachable"
       end
     end

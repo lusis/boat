@@ -7,7 +7,7 @@ module Boat
     # contents of node
     attr_accessor :configurations
 
-    # saves the application object
+    # saves the current state of the object
     def save(opts={:name => self.name, :configurations => nil})
       body = {"name" => opts[:name]}
       options = {:body => body.to_json}
