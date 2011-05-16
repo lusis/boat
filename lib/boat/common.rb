@@ -34,6 +34,13 @@ module Boat
         def noah_base_path
           @@noah_base_path = "/#{self.to_s.gsub(/(.*)::(\w)/, '\2').downcase}s"
         end
+        def all
+          begin
+            self.get("#{self.noah_base_path}").parsed_response
+          rescue Errno::ECONNREFUSED
+            "Noah server is unreachable"
+          end
+        end
       end
     end
 
@@ -41,6 +48,19 @@ module Boat
       attrs.each do |key, value|
         m = "#{key}=".to_sym
         self.send(m, value) if self.respond_to?(m)
+      end
+    end
+
+    def read(name=@name)
+      begin
+        a = self.class.new
+        res = self.class.get("#{self.class.noah_base_path}/#{name}").parsed_response
+        res.each do |key, value|
+          a.instance_variable_set("@#{key}", value)
+        end
+        a
+      rescue Errno::ECONNREFUSED
+        "Noah server is unreachable"
       end
     end
   end

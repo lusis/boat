@@ -35,5 +35,8 @@ module Boat
       end
     end
 
+    def self.all
+      raise NotImplementedError, "Ephemerals are not browsable"
+    end
   end
 end
